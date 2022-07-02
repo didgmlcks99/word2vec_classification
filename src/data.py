@@ -46,22 +46,42 @@ def get_data():
 
     # sort class data
     train_list = []
+    train_sentence_list = []
+    train_class_list = []
+
     for sentence in rmv_sw_sentence_train_neg:
+        train_sentence_list.append(sentence)
+        train_class_list.append(1)
+
         str_sentence = " ".join(sentence)
         train_list.append({'sentence': str_sentence, 'label': 1})
+
     for sentence in rmv_sw_sentence_train_non:
+        train_sentence_list.append(sentence)
+        train_class_list.append(0)
+
         str_sentence = " ".join(sentence)
         train_list.append({'sentence': str_sentence, 'label': 0})
 
     test_list = []
+    test_sentence_list = []
+    test_class_list = []
+
     for sentence in rmv_sw_sentence_test_neg:
+        test_sentence_list.append(sentence)
+        test_class_list.append(1)
+
         str_sentence = " ".join(sentence)
         test_list.append({'sentence': str_sentence, 'label': 1})
+
     for sentence in rmv_sw_sentence_test_non:
+        test_sentence_list.append(sentence)
+        test_class_list.append(0)
+
         str_sentence = " ".join(sentence)
         test_list.append({'sentence': str_sentence, 'label': 0})
 
     train_df = pd.DataFrame(train_list)
     test_df = pd.DataFrame(test_list)
 
-    return train_df, test_df
+    return train_df, test_df, train_sentence_list, train_class_list, test_sentence_list, test_class_list
