@@ -35,30 +35,30 @@ def get_data():
     tok_lem_sentence_test_neg = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in test_neg.iterrows()]
     tok_lem_sentence_test_non = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in test_non.iterrows()]
 
-    # remove stop words
-    stop_words = set(stopwords.words('english'))
+    # # remove stop words
+    # stop_words = set(stopwords.words('english'))
 
-    rmv_sw_sentence_train_neg = [ [word for word in sentence if not word in stop_words and word != ' '] for sentence in tok_lem_sentence_train_neg]
-    rmv_sw_sentence_train_non = [ [word for word in sentence if not word in stop_words and word != ' '] for sentence in tok_lem_sentence_train_non]
+    # rmv_sw_sentence_train_neg = [ [word for word in sentence if not word in stop_words and word != ' '] for sentence in tok_lem_sentence_train_neg]
+    # rmv_sw_sentence_train_non = [ [word for word in sentence if not word in stop_words and word != ' '] for sentence in tok_lem_sentence_train_non]
 
-    rmv_sw_sentence_test_neg = [ [word for word in sentence if not word in stop_words and word != ' '] for sentence in tok_lem_sentence_test_neg]
-    rmv_sw_sentence_test_non = [ [word for word in sentence if not word in stop_words and word != ' '] for sentence in tok_lem_sentence_test_non]
+    # rmv_sw_sentence_test_neg = [ [word for word in sentence if not word in stop_words and word != ' '] for sentence in tok_lem_sentence_test_neg]
+    # rmv_sw_sentence_test_non = [ [word for word in sentence if not word in stop_words and word != ' '] for sentence in tok_lem_sentence_test_non]
 
     # sort class data
     train_list = []
     train_sentence_list = []
     train_class_list = []
 
-    for sentence in rmv_sw_sentence_train_neg:
+    for sentence in tok_lem_sentence_train_neg:
         train_sentence_list.append(sentence)
-        train_class_list.append(1)
+        train_class_list.append([1])
 
         str_sentence = " ".join(sentence)
         train_list.append({'sentence': str_sentence, 'label': 1})
 
-    for sentence in rmv_sw_sentence_train_non:
+    for sentence in tok_lem_sentence_train_non:
         train_sentence_list.append(sentence)
-        train_class_list.append(0)
+        train_class_list.append([0])
 
         str_sentence = " ".join(sentence)
         train_list.append({'sentence': str_sentence, 'label': 0})
@@ -67,16 +67,16 @@ def get_data():
     test_sentence_list = []
     test_class_list = []
 
-    for sentence in rmv_sw_sentence_test_neg:
+    for sentence in tok_lem_sentence_test_neg:
         test_sentence_list.append(sentence)
-        test_class_list.append(1)
+        test_class_list.append([1])
 
         str_sentence = " ".join(sentence)
         test_list.append({'sentence': str_sentence, 'label': 1})
 
-    for sentence in rmv_sw_sentence_test_non:
+    for sentence in tok_lem_sentence_test_non:
         test_sentence_list.append(sentence)
-        test_class_list.append(0)
+        test_class_list.append([0])
 
         str_sentence = " ".join(sentence)
         test_list.append({'sentence': str_sentence, 'label': 0})

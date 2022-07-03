@@ -10,7 +10,7 @@ class NeuralNet(nn.Module):
         
         self.linear1 = torch.nn.Linear(300, 200)
         self.activation = torch.nn.ReLU()
-        self.linear2 = torch.nn.Linear(200, 2)
+        self.linear2 = torch.nn.Linear(200, 1)
         self.softmax = torch.nn.Softmax()
     
     def forward(self, x):
