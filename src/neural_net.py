@@ -1,21 +1,29 @@
-import random
-
-import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
-class NeuralNet(nn.Module):
+# Building model
+class Model(nn.Module):
+    def __init__(self, input, hidden, output):
+        super(Model, self).__init__()
+        self.l1 = nn.Linear(input, hidden)
+        self.l2 = nn.Linear(hidden , hidden)
+        self.l3 = nn.Linear(hidden, output)
 
-    def __init__(self):
-        super(NeuralNet, self).__init__()
-        
-        self.linear1 = torch.nn.Linear(300, 200)
-        self.activation = torch.nn.ReLU()
-        self.linear2 = torch.nn.Linear(200, 1)
-        self.softmax = torch.nn.Softmax()
+        # self.linear1 = torch.nn.Linear(input, hidden)
+        # self.activation = torch.nn.ReLU()
+        # self.linear2 = torch.nn.Linear(hidden, output)
+        # self.softmax = torch.nn.Softmax()
     
     def forward(self, x):
-        x = self.linear1(x)
-        x = self.activation(x)
-        x = self.linear2(x)
-        x = self.softmax(x)
-        return x
+        out = F.relu(self.l1(x))
+        out = F.relu(self.l2(out))
+        out = self.l3(out)
+
+        return out
+
+        # x = self.linear1(x)
+        # x = self.activation(x)
+        # x = self.linear2(x)
+        # x = self.softmax(x)
+
+        # return x
