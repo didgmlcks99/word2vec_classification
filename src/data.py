@@ -26,14 +26,21 @@ def get_data():
     test_neg[0] = test_neg[0].apply(lambda x: x.lower())
     test_non[0] = test_non[0].apply(lambda x: x.lower())
 
-    # lemmatization
-    nlp = spacy.load('en_core_web_sm')
+    # list of words
+    train_words_neg = [row[0].strip().split() for index, row in train_neg.iterrows()]
+    train_words_non = [row[0].strip().split() for index, row in train_non.iterrows()]
 
-    tok_lem_sentence_train_neg = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in train_neg.iterrows()]
-    tok_lem_sentence_train_non = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in train_non.iterrows()]
+    test_words_neg = [row[0].strip().split() for index, row in test_neg.iterrows()]
+    test_words_non = [row[0].strip().split() for index, row in test_non.iterrows()]
 
-    tok_lem_sentence_test_neg = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in test_neg.iterrows()]
-    tok_lem_sentence_test_non = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in test_non.iterrows()]
+    # # lemmatization
+    # nlp = spacy.load('en_core_web_sm')
+
+    # tok_lem_sentence_train_neg = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in train_neg.iterrows()]
+    # tok_lem_sentence_train_non = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in train_non.iterrows()]
+
+    # tok_lem_sentence_test_neg = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in test_neg.iterrows()]
+    # tok_lem_sentence_test_non = [[token.lemma_ for token in nlp(row[0].strip())] for index, row in test_non.iterrows()]
 
     # # remove stop words
     # stop_words = set(stopwords.words('english'))
@@ -49,14 +56,14 @@ def get_data():
     train_sentence_list = []
     train_class_list = []
 
-    for sentence in tok_lem_sentence_train_neg:
+    for sentence in train_words_neg:
         train_sentence_list.append(sentence)
         train_class_list.append([1])
 
         str_sentence = " ".join(sentence)
         train_list.append({'sentence': str_sentence, 'label': 1})
 
-    for sentence in tok_lem_sentence_train_non:
+    for sentence in train_words_non:
         train_sentence_list.append(sentence)
         train_class_list.append([0])
 
@@ -67,14 +74,14 @@ def get_data():
     test_sentence_list = []
     test_class_list = []
 
-    for sentence in tok_lem_sentence_test_neg:
+    for sentence in test_words_neg:
         test_sentence_list.append(sentence)
         test_class_list.append([1])
 
         str_sentence = " ".join(sentence)
         test_list.append({'sentence': str_sentence, 'label': 1})
 
-    for sentence in tok_lem_sentence_test_non:
+    for sentence in test_words_non:
         test_sentence_list.append(sentence)
         test_class_list.append([0])
 
@@ -84,4 +91,4 @@ def get_data():
     train_df = pd.DataFrame(train_list)
     test_df = pd.DataFrame(test_list)
 
-    return train_df, test_df, train_sentence_list, train_class_list, test_sentence_list, test_class_list
+    return train_df, test_df
