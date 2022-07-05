@@ -2,12 +2,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 # Building model
-class Model(nn.Module):
+class Simple_Net(nn.Module):
     def __init__(self, input, hidden, output):
-        super(Model, self).__init__()
+        super(Simple_Net, self).__init__()
         self.l1 = nn.Linear(input, hidden)
         self.l2 = nn.Linear(hidden , hidden)
-        self.l3 = nn.Linear(hidden, output)
+        self.l3 = nn.Linear(hidden , hidden)
+        self.l4 = nn.Linear(hidden , hidden)
+        self.l5 = nn.Linear(hidden, output)
 
         # self.linear1 = torch.nn.Linear(input, hidden)
         # self.activation = torch.nn.ReLU()
@@ -17,7 +19,9 @@ class Model(nn.Module):
     def forward(self, x):
         out = F.relu(self.l1(x))
         out = F.relu(self.l2(out))
-        out = self.l3(out)
+        out = F.relu(self.l3(out))
+        out = F.relu(self.l4(out))
+        out = self.l5(out)
 
         return out
 
