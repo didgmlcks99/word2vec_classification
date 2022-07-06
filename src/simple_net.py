@@ -6,9 +6,9 @@ class Simple_Net(nn.Module):
     def __init__(self, input, hidden, output):
         super(Simple_Net, self).__init__()
         self.l1 = nn.Linear(input, hidden)
-        self.l2 = nn.Linear(hidden , hidden)
-        self.l3 = nn.Linear(hidden , hidden)
-        self.l4 = nn.Linear(hidden , hidden)
+        self.l2 = nn.Linear(hidden , 300)
+        self.l3 = nn.Linear(300 , 300)
+        self.l4 = nn.Linear(300 , hidden)
         self.l5 = nn.Linear(hidden, output)
 
         # self.linear1 = torch.nn.Linear(input, hidden)
